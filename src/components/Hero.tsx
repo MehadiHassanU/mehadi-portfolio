@@ -1,14 +1,16 @@
 "use client";
 
-import Link from "next/link";
-import { ArrowRight, GitBranch, Link as LinkIcon, MousePointer } from "lucide-react";
-import { motion } from "motion/react";
+import { HeroName } from "./HeroName";
+import { HeroHeadline } from "./HeroHeadline";
+import { HeroSupportingCopy } from "./HeroSupportingCopy";
+import { HeroAcademicMeta } from "./HeroAcademicMeta";
+import { HeroCTAs } from "./HeroCTAs";
+import { HeroSocial } from "./HeroSocial";
+import { HeroScrollIndicator } from "./HeroScrollIndicator";
 import { useReducedMotion } from "motion/react";
-import { DisplayHeading } from "./DisplayHeading";
-import { MetadataBlock } from "./MetadataBlock";
 
 export function Hero() {
-  const prefersReducedMotion = useReducedMotion();
+  const prefersReducedMotion = useReducedMotion() ?? false;
 
   const heroLines = [
     "COMPUTER SCIENCE",

@@ -25,7 +25,7 @@ export function CuriosityTicker() {
     }
   });
 
-  const xTransformed = useTransform(x, (latest) => `${latest}px`);
+  const xTransformed = useTransform(x, (latest) => `translateX(${latest}px)`) as unknown as React.CSSProperties["transform"];
 
   return (
     <section id="curious" className="py-20 lg:py-32 overflow-hidden" aria-labelledby="curious-heading">

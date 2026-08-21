@@ -20,6 +20,7 @@ interface ProjectIndexProps {
   }>;
   label?: string;
   headline?: string;
+  subHeadline?: string;
   supportingText?: string;
   id?: string;
 }
