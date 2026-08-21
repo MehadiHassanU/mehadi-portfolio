@@ -1,0 +1,24 @@
+---
+title: Diamond Price Predictor
+subtitle: Data Science / Machine Learning
+category: Machine Learning
+year: "2025"
+tech:
+  - Python
+  - XGBoost
+  - Pandas
+  - Scikit-learn
+  - Jupyter
+github: https://github.com/MehadiHassanU/diamond-price-predictor
+description: A machine learning project exploring how different diamond characteristics influence market price and using those patterns to predict diamond values.
+problem: Understand how diamond characteristics (carat, cut, color, clarity, depth, table, x, y, z dimensions) influence market price and build a predictive model for diamond valuation.
+approach: Used the Kaggle Diamonds dataset (53,940 records). Performed exploratory data analysis to understand feature distributions, correlations, and outliers. Engineered features from categorical variables (cut, color, clarity) using ordinal encoding. Applied log transformation to target variable (price) to handle skewness.
+implementation: Trained gradient boosting regressors (XGBoost, LightGBM) with cross-validation and hyperparameter tuning via Optuna. Evaluated using RMSE and MAE on holdout test set. Analyzed feature importance to understand price drivers.
+outcome: Model achieves strong predictive performance (RMSE ~$200 on test set). Carat emerges as the dominant feature, followed by cut quality and color. Demonstrated practical application of ensemble methods for tabular data.
+learning: Feature engineering and target transformation significantly impact model performance on skewed data. Gradient boosting excels at capturing non-linear interactions in tabular datasets. Domain knowledge (e.g., carat^3 relationship with volume) guides effective feature creation.
+images: []
+---
+
+# Diamond Price Predictor
+
+A machine learning project exploring how different diamond characteristics influence market price and using those patterns to predict diamond values.

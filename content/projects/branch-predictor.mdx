@@ -1,0 +1,22 @@
+---
+title: Branch Predictor
+subtitle: Computer Architecture
+category: Computer Architecture
+year: "2025"
+tech:
+  - C++
+  - Simulation
+  - Algorithm Design
+github: https://github.com/MehadiHassanU/branch-predictor
+description: An exploration of branch prediction mechanisms and how processors use historical branch behavior to improve instruction execution.
+problem: Modern processors use branch prediction to speculatively execute instructions and avoid pipeline stalls. This project explores different prediction mechanisms and their accuracy trade-offs.
+approach: Implemented and simulated multiple branch predictor designs: static predictors (always taken/not taken), dynamic predictors (1-bit, 2-bit saturating counters), and correlation-based predictors (global history, local history, tournament). Used trace-driven simulation with standard benchmarks.
+implementation: Built a configurable C++ simulator that reads branch traces, simulates predictor state updates, and calculates misprediction rates. Visualized predictor state transitions and accuracy over time.
+outcome: 2-bit saturating counters with global history (gshare) achieved ~94% accuracy on SPEC benchmarks. Tournament predictors combining local and global history provided marginal improvements at higher hardware cost.
+learning: Branch prediction is a classic space-accuracy trade-off. Simple predictors capture most gains; complex predictors have diminishing returns. Understanding hardware-software interface is crucial for performance-critical systems.
+images: []
+---
+
+# Branch Predictor
+
+An exploration of branch prediction mechanisms and how processors use historical branch behavior to improve instruction execution.
