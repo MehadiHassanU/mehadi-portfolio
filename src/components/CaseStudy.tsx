@@ -28,9 +28,14 @@ interface CaseStudyProps {
     images: string[];
   };
   slug: string;
+  nextProject?: {
+    slug: string;
+    title: string;
+    subtitle: string;
+  };
 }
 
-export function CaseStudy({ meta, slug }: CaseStudyProps) {
+export function CaseStudy({ meta, nextProject }: CaseStudyProps) {
   const sections = [
     { id: "problem", title: "PROBLEM", content: meta.problem },
     { id: "approach", title: "APPROACH", content: meta.approach },
@@ -46,7 +51,7 @@ export function CaseStudy({ meta, slug }: CaseStudyProps) {
         <CaseStudyVisual />
         <CaseStudyDescription meta={meta} />
         <CaseStudySections sections={sections} />
-        <CaseStudyNext />
+        <CaseStudyNext nextProject={nextProject} />
       </div>
     </article>
   );
@@ -108,13 +113,23 @@ function CaseStudyHeader({ meta }: { meta: CaseStudyProps["meta"] }) {
 function CaseStudyVisual() {
   return (
     <motion.div
-      className="col-span-12 lg:col-span-8 lg:col-start-5 mt-12 lg:mt-0 relative aspect-[16/9] bg-silver/20 overflow-hidden"
+      className="col-span-12 lg:col-span-8 lg:col-start-5 mt-12 lg:mt-0 relative aspect-[16/9] swiss-frame overflow-hidden"
       initial={{ opacity: 0, scale: 0.98 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
     >
+      <div
+        className="absolute inset-0 opacity-[0.04]"
+        style={{
+          backgroundImage: `linear-gradient(var(--cool-gray) 1px, transparent 1px), linear-gradient(90deg, var(--cool-gray) 1px, transparent 1px)`,
+          backgroundSize: "40px 40px",
+        }}
+        aria-hidden="true"
+      />
       <div className="absolute inset-0 flex items-center justify-center text-slate">
-        <span className="font-body text-meta uppercase tracking-widest">Project Visual</span>
+        <span className="font-body text-meta uppercase tracking-widest border border-silver-gray px-4 py-2 bg-swiss">
+          Project Visual
+        </span>
       </div>
     </motion.div>
   );

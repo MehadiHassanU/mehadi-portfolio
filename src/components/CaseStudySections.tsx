@@ -28,14 +28,17 @@ export function CaseStudySections({ sections }: CaseStudySectionsProps) {
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.5, delay: index * 0.06 }}
         >
-          <div className="flex items-baseline gap-4">
-            <span className="font-display text-display-md font-medium text-charcoal/30">
-              {String(index + 1).padStart(2, "0")}
-            </span>
-            <h2 className="font-display text-section font-medium text-charcoal">{section.title}</h2>
-          </div>
-          <div className="pl-16 lg:pl-20 font-body text-body text-slate leading-relaxed max-w-3xl">
-            <p>{section.content}</p>
+          <div className="swiss-card-soft">
+            <div className="flex items-center gap-4 px-6 lg:px-8 py-4 border-b border-silver-gray">
+              <span className="font-display text-display-md font-medium text-charcoal/20 leading-none">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <span className="w-1 h-6 bg-accent shrink-0" aria-hidden="true" />
+              <h2 className="font-display text-section font-medium text-charcoal">{section.title}</h2>
+            </div>
+            <div className="px-6 lg:px-8 py-6 font-body text-body text-slate leading-relaxed max-w-3xl">
+              <p>{section.content}</p>
+            </div>
           </div>
         </motion.section>
       ))}

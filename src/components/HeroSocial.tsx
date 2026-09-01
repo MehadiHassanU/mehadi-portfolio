@@ -10,7 +10,7 @@ interface HeroSocialProps {
 export function HeroSocial({ prefersReducedMotion }: HeroSocialProps) {
   return (
     <motion.div
-      className="col-span-12 lg:col-span-12 mt-20 lg:mt-28 flex items-center gap-8 pt-8 border-t border-border"
+      className="col-span-12 mt-16 pt-6 border-t border-charcoal flex items-center gap-8"
       initial={prefersReducedMotion ? false : { opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.9 }}
@@ -19,7 +19,7 @@ export function HeroSocial({ prefersReducedMotion }: HeroSocialProps) {
         href="https://github.com/MehadiHassanU"
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center gap-2 text-meta text-slate uppercase tracking-widest hover:text-accent transition-colors"
+        className="flex items-center gap-2 font-body text-meta text-slate uppercase hover:text-accent transition-colors"
         aria-label="GitHub"
       >
         <GitBranch className="w-4 h-4" aria-hidden="true" />
@@ -29,7 +29,7 @@ export function HeroSocial({ prefersReducedMotion }: HeroSocialProps) {
         href="https://linkedin.com/in/mehadihassanu"
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center gap-2 text-meta text-slate uppercase tracking-widest hover:text-accent transition-colors"
+        className="flex items-center gap-2 font-body text-meta text-slate uppercase hover:text-accent transition-colors"
         aria-label="LinkedIn"
       >
         <LinkIcon className="w-4 h-4" aria-hidden="true" />

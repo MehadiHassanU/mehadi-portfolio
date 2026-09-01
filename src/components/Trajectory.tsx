@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react";
 import { SectionLabel } from "./SectionLabel";
+import { ArrowDown } from "lucide-react";
 
 const stages = [
   "COMPUTER SCIENCE",
@@ -13,59 +14,47 @@ const stages = [
 
 export function Trajectory() {
   return (
-    <section className="py-20 lg:py-32" aria-labelledby="trajectory-heading">
+    <section className="section" aria-labelledby="trajectory-heading">
       <div className="editorial-grid">
-        {/* Section Label */}
+        {/* Row 1: label (cols 1–3) */}
         <SectionLabel
           number="02"
           label="TRAJECTORY"
-          className="col-span-12 lg:col-span-2"
+          className="col-span-12 lg:col-span-3"
         />
 
-        {/* Vertical Typographic Progression */}
+        {/* Row 1 (same row, cols 4–12): numbered progression blocks */}
         <motion.div
-          className="col-span-12 lg:col-span-10 lg:col-start-3"
+          className="col-span-12 lg:col-span-9 lg:col-start-4 space-y-4"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="relative">
-            {/* Connecting line */}
-            <div
-              className="absolute left-[1.5rem] top-0 bottom-0 w-[1px] bg-border"
-              aria-hidden="true"
-            />
-
-            <div className="space-y-16 lg:space-y-20 pl-12 lg:pl-16">
-              {stages.map((stage, index) => (
-                <motion.div
-                  key={stage}
-                  className="relative"
-                  initial={{ opacity: 0, x: -30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: index * 0.1 }}
-                >
-                  {/* Dot on the line */}
-                  <div
-                    className="absolute left-[-1.5rem] top-[0.5rem] w-4 h-4 rounded-full bg-accent border-4 border-swiss"
-                    aria-hidden="true"
-                  />
-
-                  <div className="font-display text-display-md font-medium text-charcoal leading-tight">
+          {stages.map((stage, index) => (
+            <motion.div
+              key={stage}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: index * 0.08 }}
+            >
+              <div className="swiss-card-soft flex items-center justify-between px-6 py-5">
+                <div className="flex items-center gap-6">
+                  <span className="font-display text-body font-medium text-charcoal/20 w-8 shrink-0">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span className="w-1 h-8 bg-accent shrink-0" aria-hidden="true" />
+                  <span className="font-display text-section font-medium text-charcoal leading-tight">
                     {stage}
-                  </div>
-
-                  {index < stages.length - 1 && (
-                    <div className="mt-2 text-meta text-slate uppercase tracking-widest">
-                      ↓
-                    </div>
-                  )}
-                </motion.div>
-              ))}
-            </div>
-          </div>
+                  </span>
+                </div>
+                {index < stages.length - 1 && (
+                  <ArrowDown className="w-4 h-4 text-cool shrink-0" aria-hidden="true" />
+                )}
+              </div>
+            </motion.div>
+          ))}
         </motion.div>
       </div>
     </section>

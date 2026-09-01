@@ -2,8 +2,6 @@
 
 import { motion } from "motion/react";
 import { SectionLabel } from "./SectionLabel";
-import { DisplayHeading } from "./DisplayHeading";
-import { ThinRule } from "./ThinRule";
 
 const experiences = [
   {
@@ -40,46 +38,58 @@ const experiences = [
 
 export function Experience() {
   return (
-    <section id="experience" className="py-20 lg:py-32" aria-labelledby="experience-heading">
+    <section id="experience" className="section" aria-labelledby="experience-heading">
       <div className="editorial-grid">
-        <SectionLabel number="05" label="EXPERIENCE" className="col-span-12 lg:col-span-2" />
+        {/* Row 1: label (cols 1–3) */}
+        <SectionLabel
+          number="05"
+          label="EXPERIENCE"
+          className="col-span-12 lg:col-span-3"
+        />
 
+        {/* Row 1 (same row, cols 4–12): experience cards */}
         <motion.div
-          className="col-span-12 lg:col-span-10 lg:col-start-3"
+          className="col-span-12 lg:col-span-9 lg:col-start-4 space-y-6"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
           {experiences.map((exp, expIndex) => (
-            <motion.div
+            <motion.article
               key={exp.company}
-              className="space-y-4"
+              className="swiss-card"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: expIndex * 0.1 }}
             >
-              <div className="flex flex-col lg:flex-row lg:items-baseline lg:justify-between gap-4">
-                <div>
-                  <h3 className="font-display text-section font-medium text-charcoal">{exp.role}</h3>
-                  <p className="font-body text-body text-slate mt-1">{exp.company}</p>
+              {/* Card header */}
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-6 py-5 border-b border-charcoal">
+                <div className="flex items-center gap-4">
+                  <span className="w-3 h-3 bg-accent shrink-0" aria-hidden="true" />
+                  <div>
+                    <h3 className="font-display text-section font-medium text-charcoal leading-tight">{exp.role}</h3>
+                    <p className="font-body text-body-sm text-slate mt-1">{exp.company}</p>
+                  </div>
                 </div>
-                <time className="font-body text-meta text-slate uppercase tracking-widest shrink-0">{exp.period}</time>
+                <time className="font-body text-meta text-slate uppercase shrink-0">
+                  {exp.period}
+                </time>
               </div>
 
-              <p className="font-body text-body text-slate leading-relaxed max-w-2xl">{exp.description}</p>
-
-              <ul className="flex flex-wrap gap-2 text-body-sm text-cool" role="list">
-                {exp.highlights.map((h, i) => (
-                  <li key={i} className="px-3 py-1 border border-border hover:border-accent hover:text-accent transition-colors">
-                    {h}
-                  </li>
-                ))}
-              </ul>
-
-              {expIndex < experiences.length - 1 && <ThinRule className="mt-8" />}
-            </motion.div>
+              {/* Card body */}
+              <div className="px-6 py-6 space-y-6">
+                <p className="font-body text-body-sm text-slate leading-relaxed max-w-2xl">{exp.description}</p>
+                <div className="flex flex-wrap gap-2" role="list">
+                  {exp.highlights.map((h, i) => (
+                    <span key={i} className="swiss-tag">
+                      {h}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </motion.article>
           ))}
         </motion.div>
       </div>

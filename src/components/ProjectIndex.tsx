@@ -4,11 +4,11 @@ import { motion } from "motion/react";
 import { SectionLabel } from "./SectionLabel";
 import { DisplayHeading } from "./DisplayHeading";
 import { ProjectRow } from "./ProjectRow";
-import { ThinRule } from "./ThinRule";
 
 interface ProjectIndexProps {
   projects: Array<{
     number: string;
+    slug: string;
     title: string;
     subtitle: string;
     description: string;
@@ -34,18 +34,17 @@ export function ProjectIndex({
   id = "work",
 }: ProjectIndexProps) {
   return (
-    <section id={id} className="py-20 lg:py-32" aria-labelledby={`${id}-heading`}>
+    <section id={id} className="section" aria-labelledby={`${id}-heading`}>
       <div className="editorial-grid">
-        {/* Section Label */}
+        {/* Row 1: label (cols 1–3) + heading (cols 4–12) */}
         <SectionLabel
           number={label}
           label={headline}
-          className="col-span-12 lg:col-span-2"
+          className="col-span-12 lg:col-span-3"
         />
 
-        {/* Headlines */}
         <motion.div
-          className="col-span-12 lg:col-span-10 lg:col-start-3 mt-8 lg:mt-0"
+          className="col-span-12 lg:col-span-9 lg:col-start-4"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -62,23 +61,16 @@ export function ProjectIndex({
           </p>
         </motion.div>
 
-        {/* Projects */}
+        {/* Row 2: project cards (cols 4–12) */}
         <motion.div
-          className="col-span-12 lg:col-span-10 lg:col-start-3 mt-16"
+          className="col-span-12 lg:col-span-9 lg:col-start-4 mt-12 space-y-6"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
         >
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.number}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: index * 0.08 }}
-            >
-              <ProjectRow {...project} />
-            </motion.div>
+          {projects.map((project) => (
+            <ProjectRow key={project.number} {...project} />
           ))}
         </motion.div>
       </div>

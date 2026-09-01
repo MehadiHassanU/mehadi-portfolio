@@ -1,11 +1,12 @@
 "use client";
 
-import { ArrowRight } from "lucide-react";
-import { motion } from "motion/react";
-import { useReducedMotion } from "motion/react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
+import Link from "next/link";
 
 interface ProjectRowProps {
   number: string;
+  slug: string;
   title: string;
   subtitle: string;
   description: string;
@@ -19,6 +20,7 @@ interface ProjectRowProps {
 
 export function ProjectRow({
   number,
+  slug,
   title,
   subtitle,
   description,
@@ -32,72 +34,83 @@ export function ProjectRow({
   const prefersReducedMotion = useReducedMotion();
 
   return (
-    <article
-      className={`group relative py-12 lg:py-16 border-t border-border ${featured ? "bg-silver/20" : ""} ${className}`}
+    <motion.article
+      className={`swiss-card ${featured ? "bg-silver/30" : ""} ${className}`}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       aria-labelledby={`project-${number}`}
     >
-      <div className="editorial-grid">
-        {/* Number */}
-        <motion.span
-          className="col-span-12 lg:col-span-1 font-display text-display-lg font-medium text-charcoal/30 group-hover:text-accent transition-colors"
-          animate={prefersReducedMotion ? false : { x: [0, 8, 0] }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-        >
-          {number}
-        </motion.span>
+      {/* Card header strip */}
+      <div className="flex items-center justify-between border-b border-charcoal px-6 py-4">
+        <div className="flex items-center gap-4">
+          <span className="font-display text-body font-medium text-charcoal/20">
+            {number}
+          </span>
+          <span className="w-8 h-[3px] bg-accent" aria-hidden="true" />
+        </div>
+        <div className="flex items-center gap-3">
+          <span className="font-body text-meta text-slate uppercase">{category}</span>
+          <span className="w-px h-4 bg-silver-gray" aria-hidden="true" />
+          <span className="font-body text-meta text-slate uppercase">{year}</span>
+        </div>
+      </div>
 
-        {/* Title & Subtitle */}
-        <div className="col-span-12 lg:col-span-5 lg:col-start-2 pt-4 lg:pt-0">
+      {/* Card body */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 px-6 py-8">
+        {/* Title & description */}
+        <div className="lg:col-span-7">
           <h3
             id={`project-${number}`}
-            className="font-display text-section font-medium text-charcoal group-hover:text-accent transition-colors mb-2"
+            className="font-display text-section font-medium text-charcoal mb-1"
           >
-            {title}
+            <Link href={`/work/${slug}`} className="hover:text-accent transition-colors">
+              {title}
+            </Link>
           </h3>
-          <p className="font-body text-body text-slate mb-4">{subtitle}</p>
-          <p className="font-body text-body-sm text-slate leading-relaxed max-w-xs">{description}</p>
+          <p className="font-body text-body-sm text-slate mb-4">{subtitle}</p>
+          <p className="font-body text-body-sm text-slate leading-relaxed max-w-lg">{description}</p>
         </div>
 
-        {/* Metadata */}
-        <div className="col-span-12 lg:col-span-3 lg:col-start-7 pt-8 lg:pt-0 text-right">
-          <div className="font-body text-meta text-slate uppercase tracking-widest mb-2">{category}</div>
-          <div className="font-body text-meta text-slate uppercase tracking-widest mb-4">{year}</div>
-          <div className="flex flex-wrap justify-end gap-2 text-body-sm text-cool">
+        {/* Tech + links */}
+        <div className="lg:col-span-5 flex flex-col gap-6 lg:items-end">
+          <div className="flex flex-wrap lg:justify-end gap-2">
             {tech.map((t) => (
-              <span key={t} className="px-2 py-1 border border-border hover:border-accent hover:text-accent transition-colors">
+              <span key={t} className="swiss-tag">
                 {t}
               </span>
             ))}
           </div>
-        </div>
 
-        {/* Arrow & Link */}
-        <div className="col-span-12 lg:col-span-3 lg:col-start-10 pt-8 lg:pt-0">
-          {github && (
-            <a
-              href={github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-meta text-slate uppercase tracking-widest hover:text-accent transition-colors group"
-              aria-label={`View ${title} on GitHub`}
+          <div className="flex flex-wrap gap-4 lg:justify-end mt-auto">
+            <Link
+              href={`/work/${slug}`}
+              className="inline-flex items-center gap-2 px-5 py-3 bg-charcoal text-swiss font-body text-meta uppercase hover:bg-accent transition-colors"
+              aria-label={`Read the ${title} case study`}
             >
-              <span>VIEW CODE</span>
+              <span>Case Study</span>
               <motion.span
-                className="group-hover:translate-x-1 transition-transform"
                 animate={prefersReducedMotion ? false : { x: [0, 4, 0] }}
                 transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
               >
                 <ArrowRight className="w-4 h-4" aria-hidden="true" />
               </motion.span>
-            </a>
-          )}
+            </Link>
+            {github && (
+              <a
+                href={github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-3 border border-charcoal text-charcoal font-body text-meta uppercase hover:border-accent hover:text-accent transition-colors"
+                aria-label={`View ${title} on GitHub`}
+              >
+                <span>Code</span>
+                <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
+              </a>
+            )}
+          </div>
         </div>
-
-        {/* Thin rule between projects */}
-        {!featured && (
-          <hr className="col-span-12 lg:col-start-2 thin-rule mt-12 lg:mt-0" aria-hidden="true" />
-        )}
       </div>
-    </article>
+    </motion.article>
   );
 }

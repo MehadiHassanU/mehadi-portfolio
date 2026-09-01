@@ -30,12 +30,17 @@ export function Contact() {
   ];
 
   return (
-    <section id="contact" className="py-20 lg:py-32" aria-labelledby="contact-heading">
+    <section id="contact" className="section" aria-labelledby="contact-heading">
       <div className="editorial-grid">
-        <SectionLabel number="09" label="CONTACT" className="col-span-12 lg:col-span-2" />
+        {/* Row 1: label (cols 1–3) + heading (cols 4–12) */}
+        <SectionLabel
+          number="09"
+          label="CONTACT"
+          className="col-span-12 lg:col-span-3"
+        />
 
         <motion.div
-          className="col-span-12 lg:col-span-5 lg:col-start-3 mt-8 lg:mt-0"
+          className="col-span-12 lg:col-span-9 lg:col-start-4"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -47,19 +52,20 @@ export function Contact() {
           </p>
         </motion.div>
 
+        {/* Row 2: contact link cards (cols 4–12) */}
         <motion.div
-          className="col-span-12 lg:col-span-5 lg:col-start-9 mt-12 lg:mt-0"
+          className="col-span-12 lg:col-span-9 lg:col-start-4 mt-12"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
         >
-          <ul className="space-y-6" role="list">
+          <ul className="grid grid-cols-1 md:grid-cols-3 gap-6" role="list">
             {contactLinks.map((link, index) => (
               <motion.li
                 key={link.label}
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
@@ -67,15 +73,16 @@ export function Contact() {
                   href={link.href}
                   target={link.external ? "_blank" : undefined}
                   rel={link.external ? "noopener noreferrer" : undefined}
-                  className="group flex items-center gap-4 px-6 py-5 border border-border hover:border-accent hover:bg-silver/20 transition-all"
+                  className="swiss-card group flex items-center gap-4 px-6 py-5 h-full"
                   aria-label={link.label}
                 >
-                  <link.icon className="w-6 h-6 text-slate group-hover:text-accent transition-colors shrink-0" aria-hidden="true" />
-                  <div className="flex-1">
-                    <span className="font-body text-meta text-slate uppercase tracking-widest block mb-1">{link.label}</span>
-                    <span className="font-body text-body text-charcoal">{link.description}</span>
-                  </div>
-                  <ArrowRight className="w-5 h-5 text-cool group-hover:text-accent group-hover:translate-x-1 transition-all shrink-0" aria-hidden="true" />
+                  <span className="w-11 h-11 border border-charcoal flex items-center justify-center shrink-0 text-slate group-hover:bg-accent group-hover:border-accent group-hover:text-swiss transition-colors">
+                    <link.icon className="w-5 h-5" aria-hidden="true" />
+                  </span>
+                  <span className="min-w-0">
+                    <span className="font-body text-meta text-slate uppercase block mb-1">{link.label}</span>
+                    <span className="font-body text-body-sm text-charcoal break-all">{link.description}</span>
+                  </span>
                 </a>
               </motion.li>
             ))}

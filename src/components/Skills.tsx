@@ -2,7 +2,6 @@
 
 import { motion } from "motion/react";
 import { SectionLabel } from "./SectionLabel";
-import { DisplayHeading } from "./DisplayHeading";
 
 const skillCategories = [
   {
@@ -25,33 +24,44 @@ const skillCategories = [
 
 export function Skills() {
   return (
-    <section id="skills" className="py-20 lg:py-32" aria-labelledby="skills-heading">
+    <section id="skills" className="section" aria-labelledby="skills-heading">
       <div className="editorial-grid">
-        <SectionLabel number="06" label="SKILLS" className="col-span-12 lg:col-span-2" />
+        {/* Row 1: label (cols 1–3) */}
+        <SectionLabel
+          number="06"
+          label="SKILLS"
+          className="col-span-12 lg:col-span-3"
+        />
 
+        {/* Row 1 (same row, cols 4–12): skill category cards */}
         <motion.div
-          className="col-span-12 lg:col-span-10 lg:col-start-3"
+          className="col-span-12 lg:col-span-9 lg:col-start-4"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {skillCategories.map((cat, catIndex) => (
               <motion.div
                 key={cat.category}
-                className="space-y-4"
+                className="swiss-card-soft flex flex-col"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: catIndex * 0.08 }}
               >
-                <h4 className="font-body text-meta text-slate uppercase tracking-widest mb-4">{cat.category}</h4>
-                <ul className="space-y-3" role="list">
+                <div className="flex items-center gap-3 px-5 py-4 border-b border-silver-gray">
+                  <span className="w-2 h-2 bg-accent shrink-0" aria-hidden="true" />
+                  <h4 className="font-body text-meta text-charcoal uppercase font-medium">
+                    {cat.category}
+                  </h4>
+                </div>
+                <ul className="p-5 space-y-3 flex-1" role="list">
                   {cat.skills.map((skill, skillIndex) => (
                     <motion.li
                       key={skill}
-                      className="font-body text-body text-charcoal border-b border-border/50 pb-3 last:border-0"
+                      className="font-body text-body-sm text-graphite border-b border-silver-gray/50 pb-3 last:border-0 last:pb-0"
                       initial={{ opacity: 0, x: -10 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}

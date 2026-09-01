@@ -1,8 +1,6 @@
 "use client";
 
-import { motion, useMotionValue, useTransform, useAnimationFrame } from "motion/react";
 import { SectionLabel } from "./SectionLabel";
-import { DisplayHeading } from "./DisplayHeading";
 
 const curiosityItems = [
   "AI AGENTS",
@@ -13,67 +11,76 @@ const curiosityItems = [
   "TECHNOLOGY ENTREPRENEURSHIP",
 ];
 
+/**
+ * News-style marquee band for the "Curious About" section.
+ *
+ * Layout: full-bleed horizontal band below a grid-aligned header row.
+ * The track contains two identical halves; the CSS animation translates
+ * the track by exactly -50%, producing a perfectly seamless loop.
+ *
+ * Edges: gradient fade masks (bg → transparent) ensure items dissolve
+ * before reaching the viewport edge — no hard clipping, no overlap.
+ */
 export function CuriosityTicker() {
-  const x = useMotionValue(0);
-  const speed = 20; // pixels per frame
-
-  useAnimationFrame((t, dt) => {
-    const width = document.querySelector(".ticker-track")?.scrollWidth || 0;
-    const containerWidth = document.querySelector(".ticker-container")?.clientWidth || 0;
-    if (width > containerWidth) {
-      x.set((x.get() - speed * (dt / 1000)) % (width / 2));
-    }
-  });
-
-  const xTransformed = useTransform(x, (latest) => `translateX(${latest}px)`) as unknown as React.CSSProperties["transform"];
-
   return (
-    <section id="curious" className="py-20 lg:py-32 overflow-hidden" aria-labelledby="curious-heading">
-      <div className="editorial-grid">
-        <SectionLabel number="04" label="CURRENTLY CURIOUS ABOUT" className="col-span-12 lg:col-span-2" />
+    <section id="curious" className="section" aria-labelledby="curious-heading">
+      {/* Header row — aligned to the master editorial grid */}
+      <div className="editorial-grid mb-12">
+        <SectionLabel
+          number="04"
+          label="CURIOUS ABOUT"
+          className="col-span-12 lg:col-span-3"
+        />
+        <p className="col-span-12 lg:col-span-9 lg:col-start-4 font-body text-body-lg text-slate leading-relaxed max-w-xl">
+          Topics I'm actively exploring through coursework, experiments, and self-directed learning.
+        </p>
+      </div>
 
-        <motion.div
-          className="col-span-12 lg:col-span-10 lg:col-start-3"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      {/* Full-bleed ticker band — spans the entire viewport width */}
+      <div
+        className="ticker-band relative w-full overflow-hidden border-y border-charcoal py-8 lg:py-10"
+        role="marquee"
+        aria-label="Areas of curiosity"
+      >
+        {/* Track: two identical halves for a seamless -50% loop.
+            Inline animation bypasses any cascade conflicts. */}
+        <div
+          className="flex min-w-max items-center"
+          style={{
+            animation: "ticker-scroll 20s linear infinite",
+            willChange: "transform",
+          } as React.CSSProperties}
         >
-          <div className="ticker-container relative">
+          {[0, 1].map((half) => (
             <div
-              className="ticker-track flex gap-8 lg:gap-16 whitespace-nowrap will-change-transform"
-              style={{ transform: xTransformed }}
-              aria-label="Areas of curiosity"
+              key={half}
+              className="flex items-center shrink-0"
+              aria-hidden={half === 1}
             >
-              {/* Duplicate items for seamless loop */}
               {curiosityItems.map((item, index) => (
-                <motion.span
-                  key={`${item}-1`}
-                  className="font-display text-display-lg font-medium text-charcoal white-space-nowrap"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.08 }}
-                  style={{ willChange: "transform" }}
-                >
-                  {item}
-                </motion.span>
-              ))}
-              {curiosityItems.map((item, index) => (
-                <motion.span
-                  key={`${item}-2`}
-                  className="font-display text-display-lg font-medium text-charcoal/30 white-space-nowrap"
-                  style={{ willChange: "transform" }}
-                >
-                  {item}
-                </motion.span>
+                <span key={`${half}-${index}`} className="flex items-center">
+                  <span className="font-display text-display-md font-medium text-charcoal whitespace-nowrap px-6 lg:px-10">
+                    {item}
+                  </span>
+                  <span
+                    className="w-2 h-2 bg-accent shrink-0"
+                    aria-hidden="true"
+                  />
+                </span>
               ))}
             </div>
+          ))}
+        </div>
 
-            {/* Fade masks on edges */}
-            <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-swiss to-transparent pointer-events-none" aria-hidden="true" />
-            <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-swiss to-transparent pointer-events-none" aria-hidden="true" />
-          </div>
-        </motion.div>
+        {/* Edge fade masks — items dissolve into the background */}
+        <div
+          className="absolute left-0 top-0 bottom-0 w-16 md:w-24 lg:w-32 bg-gradient-to-r from-swiss to-transparent pointer-events-none z-10"
+          aria-hidden="true"
+        />
+        <div
+          className="absolute right-0 top-0 bottom-0 w-16 md:w-24 lg:w-32 bg-gradient-to-l from-swiss to-transparent pointer-events-none z-10"
+          aria-hidden="true"
+        />
       </div>
     </section>
   );

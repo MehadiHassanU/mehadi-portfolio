@@ -8,17 +8,26 @@ interface SectionLabelProps {
   className?: string;
 }
 
+/**
+ * Swiss editorial section label.
+ * Plain typographic treatment — no bordered chip — so it can never
+ * overflow its grid column. Sits at the top of each section row.
+ */
 export function SectionLabel({ number, label, className = "" }: SectionLabelProps) {
   return (
     <motion.div
-      className={`font-display text-meta text-slate uppercase tracking-widest ${className}`}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      className={className}
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
     >
-      <span className="font-medium text-graphite">{number}</span>
-      <span className="mx-4 text-cool">/</span>
-      <span>{label}</span>
+      <div className="flex items-center gap-3">
+        <span className="w-2 h-2 bg-accent shrink-0" aria-hidden="true" />
+        <span className="font-body text-meta text-charcoal uppercase font-medium whitespace-nowrap">
+          {number} / {label}
+        </span>
+      </div>
     </motion.div>
   );
 }
