@@ -48,12 +48,17 @@ export function Hero() {
         <HeroName nameLines={nameLines} prefersReducedMotion={prefersReducedMotion} />
         <HeroHeadline heroLines={heroLines} prefersReducedMotion={prefersReducedMotion} />
 
-        {/* Row 2: supporting copy (cols 5–8) + academic meta (cols 9–12) */}
-        <HeroSupportingCopy supportingCopy={supportingCopy} prefersReducedMotion={prefersReducedMotion} />
+        {/* Row 3: description + CTAs share one grid cell (cols 5–8) so the
+            buttons sit cleanly levelled under the copy in the lower-left,
+            while the academic card starts on the same row at cols 9–12. */}
+        <div className="col-span-12 lg:col-span-4 lg:col-start-5 lg:row-start-3 flex flex-col self-start">
+          <HeroSupportingCopy
+            supportingCopy={supportingCopy}
+            prefersReducedMotion={prefersReducedMotion}
+          />
+          <HeroCTAs prefersReducedMotion={prefersReducedMotion} />
+        </div>
         <HeroAcademicMeta prefersReducedMotion={prefersReducedMotion} />
-
-        {/* Row 3: CTAs aligned with copy (cols 5–8) */}
-        <HeroCTAs prefersReducedMotion={prefersReducedMotion} />
 
         {/* Row 4: social, full width with top rule */}
         <HeroSocial prefersReducedMotion={prefersReducedMotion} />

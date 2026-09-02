@@ -10,7 +10,7 @@ interface HeroSupportingCopyProps {
 export function HeroSupportingCopy({ supportingCopy, prefersReducedMotion }: HeroSupportingCopyProps) {
   return (
     <motion.div
-      className="col-span-12 lg:col-span-4 lg:col-start-5 mt-12 lg:mt-16"
+      className="self-start"
       initial={prefersReducedMotion ? false : { opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.5 }}

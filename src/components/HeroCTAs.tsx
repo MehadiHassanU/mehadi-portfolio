@@ -11,7 +11,7 @@ interface HeroCTAsProps {
 export function HeroCTAs({ prefersReducedMotion }: HeroCTAsProps) {
   return (
     <motion.div
-      className="col-span-12 lg:col-span-4 lg:col-start-5 mt-12 lg:mt-16 flex flex-col sm:flex-row lg:flex-col gap-4"
+      className="mt-10 lg:mt-12 flex flex-col sm:flex-row lg:flex-col gap-4"
       initial={prefersReducedMotion ? false : { opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.7 }}

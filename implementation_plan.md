@@ -1,59 +1,36 @@
 # Implementation Plan
 
 [Overview]
-Rebuild the mehadi-portfolio About section and overall page layout using a strict Swiss International Typographic Style editorial grid. Remove overlapping elements, arbitrary absolute positioning, and inconsistent spacing. Establish one primary 12-column grid with consistent gutters, align all major elements to the same grid lines, and rebuild the About cards as 3 equal bordered cards with precise internal spacing.
+Keep the hero layout as is (name, headline, supporting copy, academic profile card, social row) and only reposition the two CTA buttons ("Explore My Work" / "Let's Connect") so they sit stacked vertically, cleanly levelled under the supporting description in the lower-left area, with the Academic Profile card remaining top-aligned on the right.
 
 [Types]
-No new TypeScript types required. Existing interfaces (About props, SectionLabel props, ProjectRow props) remain unchanged. Only layout class names and grid structures are modified.
+No type changes. Existing component props (HeroSupportingCopyProps, HeroCTAsProps, HeroAcademicMetaProps) remain unchanged.
 
 [Files]
 New files: none.
 Modified files:
-- src/components/About.tsx — rebuild with strict grid alignment, 3-col cards, consistent spacing
-- src/app/globals.css — add spacing token utilities (space-1 through space-16 already exist; verify consistent usage)
-- src/components/SectionLabel.tsx — ensure label aligns to grid, no arbitrary margins
-- src/components/DisplayHeading.tsx — verify heading aligns to grid lines
-- src/components/Hero.tsx — verify hero grid alignment, remove unnecessary absolute positioning where possible
-- src/components/ProjectRow.tsx — verify card alignment to grid
-- src/components/ProjectIndex.tsx — verify grid spacing consistency
-- src/components/Skills.tsx — verify card grid alignment
-- src/components/Experience.tsx — verify card grid alignment
-- src/components/Education.tsx — verify split panel alignment
-- src/components/BeyondCode.tsx — verify card grid alignment
-- src/components/Contact.tsx — verify card grid alignment
-- src/components/Research.tsx — verify grid alignment
-- src/components/Trajectory.tsx — verify numbered block alignment
-- src/components/Header.tsx — verify header grid alignment
-- src/components/Footer.tsx — verify footer grid alignment
+- src/components/Hero.tsx — wrap HeroSupportingCopy + HeroCTAs in one grid cell (cols 5–8, row 3) so both share the same left column; academic meta stays cols 9–12 row 3.
+- src/components/HeroSupportingCopy.tsx — remove grid placement classes (now provided by wrapper); keep self-start.
+- src/components/HeroCTAs.tsx — remove grid placement + arbitrary mt-6/lg:mt-8; keep vertical stack (flex-col on lg) with a consistent top margin under the description.
 
 [Functions]
-No new functions required. Modified functions:
-- About component: restructure JSX to use editorial-grid with consistent col-span assignments; replace arbitrary mt-8 with grid-aligned spacing; rebuild cards with equal widths, consistent padding, and no fixed heights.
-- SectionLabel: verify className applies correctly to grid column.
+Modified components only (className/JSX restructure):
+- Hero: new wrapper div `col-span-12 lg:col-span-4 lg:col-start-5 lg:row-start-3 flex flex-col` containing the two components.
+- HeroSupportingCopy: className becomes `self-start` (drop col-span/col-start/row-start).
+- HeroCTAs: className becomes `mt-10 flex flex-col sm:flex-row lg:flex-col gap-4` (drop col-span/col-start and mt-6/lg:mt-8).
 
 [Classes]
-No new classes required. Existing classes used:
-- editorial-grid (12-col grid, 24px gap, 1200px max-width, 80px padding)
-- swiss-card-soft (1px silver border, white bg, hover shadow)
-- swiss-label (bordered label chip)
-- swiss-tag (bordered tag)
+No new classes. Reuses existing: editorial-grid, swiss-card-soft, swiss-accent-bar.
 
 [Dependencies]
-No new dependencies. Existing Tailwind CSS v4 + Next.js 16 setup sufficient.
+No changes.
 
 [Testing]
-Visual QA only: inspect page at 1440px, 1280px, 1024px, 768px, 480px, 375px. Verify:
-- Section label, heading, and cards align to same left/right grid lines
-- No overlaps between heading and cards
-- Cards have equal widths and consistent internal padding
-- No unexplained vertical gaps
-- Responsive collapse: 3-col → 2+1 → 1-col
+- Run `npm run build` and `npm run lint`.
+- Visual QA: CTAs stacked, left-aligned under description, top of CTA block clearly below description; academic card top-aligned right; no overlap at 1440/1024/768/375px.
 
 [Implementation Order]
-1. Inspect current About.tsx and identify all arbitrary margins/transforms/absolute positioning
-2. Remove bad layout rules (negative margins, arbitrary transforms, fixed heights)
-3. Rebuild About with editorial-grid: label (col-span-2), heading (col-span-10 col-start-3), cards (col-span-10 col-start-3, grid-cols-3 gap-6)
-4. Verify cards use consistent padding (p-6 lg:p-8) and no fixed heights
-5. Check responsive: lg:grid-cols-3, md:grid-cols-2, grid-cols-1
-6. Verify build passes
-7. Visual QA at all breakpoints
+1. Edit Hero.tsx (wrapper)
+2. Edit HeroSupportingCopy.tsx and HeroCTAs.tsx (strip grid classes)
+3. Build + lint verify
+4. Visual QA
