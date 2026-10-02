@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Root-level scratch script, not part of the app.
+    "check-lucide.js",
   ]),
 ]);
 

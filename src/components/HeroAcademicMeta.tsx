@@ -22,7 +22,7 @@ export function HeroAcademicMeta({ prefersReducedMotion }: HeroAcademicMetaProps
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.5 }}
     >
       <div className="swiss-card-soft p-6">
-        <div className="flex items-center gap-3 mb-5 pb-4 border-b border-silver-gray">
+        <div className="flex items-center gap-3 mb-5 pb-4 border-b border-silver">
           <span className="w-2 h-2 bg-accent shrink-0" aria-hidden="true" />
           <span className="font-body text-meta text-charcoal uppercase font-medium">
             Academic Profile

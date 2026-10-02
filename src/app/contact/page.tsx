@@ -12,7 +12,8 @@ export default function ContactPage() {
     <>
       <Header />
       <main id="main-content" className="flex-1 pt-20">
-        <Contact />
+        {/** Sole section on this route, so it is 01 rather than the homepage 05. */}
+        <Contact number="01" />
       </main>
       <Footer />
     </>

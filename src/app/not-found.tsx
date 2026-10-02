@@ -23,7 +23,7 @@ export default function NotFound() {
                 PAGE NOT FOUND.
               </h1>
               <p className="font-body text-body-lg text-slate leading-relaxed max-w-xl mb-12">
-                The page you're looking for doesn't exist or may have been moved. Let's get you back on track.
+                The page you&apos;re looking for doesn&apos;t exist or may have been moved. Let&apos;s get you back on track.
               </p>
               <div className="flex flex-wrap gap-6">
                 <Link

@@ -1,4 +1,4 @@
-import { GitBranch, Link as LinkIcon, Mail } from "lucide-react";
+import { GitBranch, Link as LinkIcon, Mail, Phone } from "lucide-react";
 
 export function Footer() {
   return (
@@ -33,6 +33,13 @@ export function Footer() {
             aria-label="LinkedIn"
           >
             <LinkIcon className="w-4 h-4" aria-hidden="true" />
+          </a>
+          <a
+            href="tel:+8801870200163"
+            className="w-10 h-10 border border-charcoal flex items-center justify-center text-slate hover:bg-accent hover:border-accent hover:text-swiss transition-colors"
+            aria-label="Phone"
+          >
+            <Phone className="w-4 h-4" aria-hidden="true" />
           </a>
           <a
             href="mailto:uthomehedihasan@gmail.com"

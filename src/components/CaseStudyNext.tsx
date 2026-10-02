@@ -27,7 +27,7 @@ export function CaseStudyNext({ nextProject }: CaseStudyNextProps) {
           className="group inline-flex items-baseline gap-4 font-display text-section font-medium text-charcoal hover:text-accent transition-colors"
         >
           <span>
-            {nextProject.title.toUpperCase()}
+            {nextProject.title}
             <span className="hidden sm:inline font-body text-body text-slate font-normal"> — {nextProject.subtitle}</span>
           </span>
           <ArrowRight className="w-6 h-6 self-center group-hover:translate-x-1 transition-transform" aria-hidden="true" />

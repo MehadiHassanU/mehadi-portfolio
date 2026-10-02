@@ -12,13 +12,18 @@ const stages = [
   "TECHNOLOGY + BUSINESS",
 ];
 
-export function Trajectory() {
+/**
+ * `number` is a prop rather than a literal because these sections now appear on
+ * more than one route. Hard-coding it is how the numbering drifted out of sync
+ * with page order the first time.
+ */
+export function Trajectory({ number }: { number: string }) {
   return (
-    <section className="section" aria-labelledby="trajectory-heading">
+    <section className="section" aria-label="Trajectory">
       <div className="editorial-grid">
         {/* Row 1: label (cols 1–3) */}
         <SectionLabel
-          number="02"
+          number={number}
           label="TRAJECTORY"
           className="col-span-12 lg:col-span-3"
         />

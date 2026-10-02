@@ -16,33 +16,38 @@ const experiences = [
       "Customer acquisition",
       "Digital advertising",
       "Entrepreneurship",
-      "Understanding business problems",
       "Connecting technology with commercial outcomes",
     ],
   },
   {
-    role: "Administrative Support",
+    role: "IT Executive",
     company: "Farabi General Hospital LTD",
-    period: "Present",
+    period: "Feb 2024 – Present",
     description:
-      "Exposure to real-world organizational workflows, working with digital systems, supporting users/patients, using software operationally.",
+      "Part-time IT Executive supporting the hospital’s digital infrastructure: maintaining hardware and software functionality, troubleshooting for staff to minimise downtime, and contributing to data security, system updates and IT protocol compliance.",
     highlights: [
-      "MS Word",
-      "Excel",
-      "Learning unfamiliar systems",
-      "Digital systems operation",
-      "User/patient support",
+      "System support",
+      "Technical troubleshooting",
+      "Software configuration",
+      "Data security",
+      "System updates",
+      "IT protocol compliance",
     ],
   },
 ];
 
-export function Experience() {
+/**
+ * `number` is a prop rather than a literal because these sections now appear on
+ * more than one route. Hard-coding it is how the numbering drifted out of sync
+ * with page order the first time.
+ */
+export function Experience({ number }: { number: string }) {
   return (
-    <section id="experience" className="section" aria-labelledby="experience-heading">
+    <section id="experience" className="section" aria-label="Experience">
       <div className="editorial-grid">
         {/* Row 1: label (cols 1–3) */}
         <SectionLabel
-          number="05"
+          number={number}
           label="EXPERIENCE"
           className="col-span-12 lg:col-span-3"
         />
@@ -73,21 +78,25 @@ export function Experience() {
                     <p className="font-body text-body-sm text-slate mt-1">{exp.company}</p>
                   </div>
                 </div>
-                <time className="font-body text-meta text-slate uppercase shrink-0">
-                  {exp.period}
-                </time>
+                {exp.period && (
+                  <time className="font-body text-meta text-slate uppercase shrink-0">
+                    {exp.period}
+                  </time>
+                )}
               </div>
 
               {/* Card body */}
               <div className="px-6 py-6 space-y-6">
                 <p className="font-body text-body-sm text-slate leading-relaxed max-w-2xl">{exp.description}</p>
-                <div className="flex flex-wrap gap-2" role="list">
-                  {exp.highlights.map((h, i) => (
-                    <span key={i} className="swiss-tag">
-                      {h}
-                    </span>
-                  ))}
-                </div>
+                {exp.highlights.length > 0 && (
+                  <div className="flex flex-wrap gap-2" role="list">
+                    {exp.highlights.map((h, i) => (
+                      <span key={i} className="swiss-tag">
+                        {h}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
             </motion.article>
           ))}

@@ -51,7 +51,7 @@ export function ProjectRow({
         </div>
         <div className="flex items-center gap-3">
           <span className="font-body text-meta text-slate uppercase">{category}</span>
-          <span className="w-px h-4 bg-silver-gray" aria-hidden="true" />
+          <span className="w-px h-4 bg-silver" aria-hidden="true" />
           <span className="font-body text-meta text-slate uppercase">{year}</span>
         </div>
       </div>

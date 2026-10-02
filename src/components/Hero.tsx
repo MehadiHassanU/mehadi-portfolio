@@ -12,12 +12,11 @@ import { useReducedMotion } from "motion/react";
 export function Hero() {
   const prefersReducedMotion = useReducedMotion() ?? false;
 
-  const heroLines = [
-    "COMPUTER SCIENCE",
-    "STUDENT EXPLORING",
-    "THE INTERSECTION OF",
-    "AI, DATA & BUSINESS.",
-  ];
+  // Each entry renders as its own block. "THE INTERSECTION OF" was wide
+  // enough to wrap mid-phrase inside the 8-column slot at >=1280px, which
+  // broke the flush-left edge. These four all fit on one line at every
+  // breakpoint, keeping a clean ragged right.
+  const heroLines = ["COMPUTER SCIENCE", "STUDENT EXPLORING", "AI, DATA &", "BUSINESS."];
 
   const nameLines = ["MD. MEHADI", "HASSAN"];
 

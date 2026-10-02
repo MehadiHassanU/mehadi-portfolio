@@ -10,13 +10,18 @@ const aboutParagraphs = [
   "I'm particularly interested in AI agents, data analytics, automation, machine learning applications, and the intersection between technology and business.",
 ];
 
-export function About() {
+/**
+ * `number` is a prop rather than a literal because these sections now appear on
+ * more than one route. Hard-coding it is how the numbering drifted out of sync
+ * with page order the first time.
+ */
+export function About({ number }: { number: string }) {
   return (
     <section id="about" className="section" aria-labelledby="about-heading">
       <div className="editorial-grid">
         {/* Row 1: label (cols 1–3) + heading (cols 4–12), top-aligned */}
         <SectionLabel
-          number="01"
+          number={number}
           label="ABOUT"
           className="col-span-12 lg:col-span-3"
         />
@@ -29,6 +34,8 @@ export function About() {
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
             <DisplayHeading
+              id="about-heading"
+              as="h2"
               lines={["A LITTLE", "ABOUT ME."]}
               size="lg"
               stagger={0.1}

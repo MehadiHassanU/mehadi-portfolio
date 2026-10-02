@@ -2,33 +2,20 @@
 
 import { motion } from "motion/react";
 import { SectionLabel } from "./SectionLabel";
+import { skillCategories } from "@/lib/skills";
 
-const skillCategories = [
-  {
-    category: "PROGRAMMING",
-    skills: ["C", "C++", "Java", "Python", "JavaScript", "TypeScript"],
-  },
-  {
-    category: "DATA & AI",
-    skills: ["Data Analytics", "Machine Learning", "Artificial Intelligence", "Data Visualization"],
-  },
-  {
-    category: "DEVELOPMENT",
-    skills: ["Next.js", "React", "Tailwind CSS", "Supabase", "PostgreSQL"],
-  },
-  {
-    category: "ENGINEERING",
-    skills: ["Git", "GitHub", "Testing", "CI/CD", "REST/API Concepts"],
-  },
-];
-
-export function Skills() {
+/**
+ * `number` is a prop rather than a literal because these sections now appear on
+ * more than one route. Hard-coding it is how the numbering drifted out of sync
+ * with page order the first time.
+ */
+export function Skills({ number }: { number: string }) {
   return (
-    <section id="skills" className="section" aria-labelledby="skills-heading">
+    <section id="skills" className="section" aria-label="Skills">
       <div className="editorial-grid">
         {/* Row 1: label (cols 1–3) */}
         <SectionLabel
-          number="06"
+          number={number}
           label="SKILLS"
           className="col-span-12 lg:col-span-3"
         />
@@ -51,7 +38,7 @@ export function Skills() {
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: catIndex * 0.08 }}
               >
-                <div className="flex items-center gap-3 px-5 py-4 border-b border-silver-gray">
+                <div className="flex items-center gap-3 px-5 py-4 border-b border-silver">
                   <span className="w-2 h-2 bg-accent shrink-0" aria-hidden="true" />
                   <h4 className="font-body text-meta text-charcoal uppercase font-medium">
                     {cat.category}
@@ -61,7 +48,7 @@ export function Skills() {
                   {cat.skills.map((skill, skillIndex) => (
                     <motion.li
                       key={skill}
-                      className="font-body text-body-sm text-graphite border-b border-silver-gray/50 pb-3 last:border-0 last:pb-0"
+                      className="font-body text-body-sm text-graphite border-b border-silver/50 pb-3 last:border-0 last:pb-0"
                       initial={{ opacity: 0, x: -10 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}

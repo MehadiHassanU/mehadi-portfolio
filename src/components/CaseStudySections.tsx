@@ -29,7 +29,7 @@ export function CaseStudySections({ sections }: CaseStudySectionsProps) {
           transition={{ duration: 0.5, delay: index * 0.06 }}
         >
           <div className="swiss-card-soft">
-            <div className="flex items-center gap-4 px-6 lg:px-8 py-4 border-b border-silver-gray">
+            <div className="flex items-center gap-4 px-6 lg:px-8 py-4 border-b border-silver">
               <span className="font-display text-display-md font-medium text-charcoal/20 leading-none">
                 {String(index + 1).padStart(2, "0")}
               </span>

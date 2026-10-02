@@ -79,9 +79,21 @@ html {
   scroll-behavior: smooth;
 }
 
-/* NOTE: Global prefers-reduced-motion override removed.
-   The ticker and decorative animations use !important via inline style.
-   Motion components handle their own reduced-motion via useReducedMotion. */
+/* Reduced-motion floor.
+   Only Hero and ProjectRow call useReducedMotion. Every component using
+   whileInView animates unconditionally through motion's JS/WAAPI layer,
+   which plain CSS transitions cannot suppress -- so this block is the backstop
+   that stops a future component from regressing silently. Keep the !important. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
 
 body {
   background: var(--background);
@@ -195,14 +207,18 @@ body {
   color: var(--swiss-red);
 }
 
+/* Hover uses the standalone `translate` property, NOT `transform`.
+   Motion writes `style="transform: none"` inline on every motion.*
+   element, which outranks stylesheet rules and silently killed the lift.
+   `translate` is a separate property and composes with motion instead. */
 .swiss-card {
   border: 1px solid var(--swiss-charcoal);
   background: var(--swiss-white);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: translate 0.25s ease, box-shadow 0.25s ease;
 }
 
 .swiss-card:hover {
-  transform: translate(-2px, -2px);
+  translate: -2px -2px;
   box-shadow: 4px 4px 0 0 var(--swiss-red);
 }
 
@@ -253,17 +269,19 @@ body {
   }
 }
 
+.ticker-band {
+  --ticker-duration: 20s;
+}
+
 .ticker-track {
-  animation: ticker-scroll var(--ticker-duration, 36s) linear infinite;
+  animation: ticker-scroll var(--ticker-duration, 20s) linear infinite;
   will-change: transform;
 }
 
-/* Pause on hover / keyboard focus for readability */
-.ticker-band:hover .ticker-track,
-.ticker-band:focus-within .ticker-track {
-  animation-play-state: paused;
-}
-
+/* Deliberately NO hover/focus pause: the band is decorative (the list is also
+   exposed as text above it) and the motion is what makes it read as a ticker.
+   Do not reintroduce an `animation-play-state: paused` rule here.
+   prefers-reduced-motion below is the only thing that stops it. */
 @media (prefers-reduced-motion: reduce) {
   .ticker-track {
     animation: none;

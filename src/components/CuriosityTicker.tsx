@@ -21,36 +21,37 @@ const curiosityItems = [
  * Edges: gradient fade masks (bg → transparent) ensure items dissolve
  * before reaching the viewport edge — no hard clipping, no overlap.
  */
-export function CuriosityTicker() {
+/**
+ * `number` is a prop rather than a literal because these sections now appear on
+ * more than one route. Hard-coding it is how the numbering drifted out of sync
+ * with page order the first time.
+ */
+export function CuriosityTicker({ number }: { number: string }) {
   return (
-    <section id="curious" className="section" aria-labelledby="curious-heading">
+    <section id="curious" className="section" aria-label="Currently curious about">
       {/* Header row — aligned to the master editorial grid */}
       <div className="editorial-grid mb-12">
         <SectionLabel
-          number="04"
+          number={number}
           label="CURIOUS ABOUT"
           className="col-span-12 lg:col-span-3"
         />
         <p className="col-span-12 lg:col-span-9 lg:col-start-4 font-body text-body-lg text-slate leading-relaxed max-w-xl">
-          Topics I'm actively exploring through coursework, experiments, and self-directed learning.
+          Topics I&apos;m actively exploring through coursework, experiments, and self-directed learning.
         </p>
       </div>
 
       {/* Full-bleed ticker band — spans the entire viewport width */}
       <div
         className="ticker-band relative w-full overflow-hidden border-y border-charcoal py-8 lg:py-10"
-        role="marquee"
         aria-label="Areas of curiosity"
       >
         {/* Track: two identical halves for a seamless -50% loop.
-            Inline animation bypasses any cascade conflicts. */}
-        <div
-          className="flex min-w-max items-center"
-          style={{
-            animation: "ticker-scroll 20s linear infinite",
-            willChange: "transform",
-          } as React.CSSProperties}
-        >
+            The animation and the prefers-reduced-motion opt-out live in
+            globals.css under `.ticker-track`. Do NOT move the animation into
+            an inline style: inline outranks the cascade, which silently killed
+            the reduced-motion opt-out. The band never pauses on hover. */}
+        <div className="ticker-track flex min-w-max items-center">
           {[0, 1].map((half) => (
             <div
               key={half}

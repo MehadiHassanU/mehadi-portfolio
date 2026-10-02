@@ -1,21 +1,23 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { GitBranch, Link as LinkIcon, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
 const navItems = [
   { href: "/#work", label: "Work" },
-  { href: "/#about", label: "About" },
-  { href: "/#research", label: "Research" },
+  { href: "/background", label: "Background" },
   { href: "/#beyond", label: "Beyond Code" },
+  { href: "/cv", label: "CV" },
   { href: "/contact", label: "Contact" },
 ];
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,6 +26,28 @@ export function Header() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Escape closes the menu and the page behind the overlay must not scroll
+  // while it is open. Focus is NOT restored here: the panel keeps mounted
+  // through its 0.3s exit animation, so restoring early gets undone when it
+  // finally unmounts. AnimatePresence.onExitComplete handles it instead.
+  useEffect(() => {
+    if (!mobileOpen) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMobileOpen(false);
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    closeButtonRef.current?.focus();
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [mobileOpen]);
 
   return (
     <header
@@ -85,6 +109,7 @@ export function Header() {
 
         {/* Mobile Menu Button */}
         <button
+          ref={menuButtonRef}
           className="lg:hidden p-2 text-charcoal hover:text-accent transition-colors"
           onClick={() => setMobileOpen(true)}
           aria-label="Open menu"
@@ -95,9 +120,14 @@ export function Header() {
       </nav>
 
       {/* Mobile Menu Overlay */}
-      <AnimatePresence>
+      <AnimatePresence onExitComplete={() => menuButtonRef.current?.focus()}>
         {mobileOpen && (
           <motion.div
+            // AnimatePresence can only run the exit animation -- and actually
+            // unmount the overlay -- if its child has a key. Without one the
+            // panel stayed in the DOM at opacity 1 and silently swallowed every
+            // click across the top of the viewport on mobile.
+            key="mobile-menu"
             className="fixed inset-0 z-50 bg-swiss flex flex-col items-center justify-center gap-12 px-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -108,6 +138,7 @@ export function Header() {
             aria-label="Navigation menu"
           >
             <button
+              ref={closeButtonRef}
               className="absolute top-6 right-6 p-2 text-charcoal hover:text-accent transition-colors"
               onClick={() => setMobileOpen(false)}
               aria-label="Close menu"

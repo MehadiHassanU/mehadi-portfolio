@@ -16,7 +16,14 @@ export function HeroHeadline({ heroLines, prefersReducedMotion }: HeroHeadlinePr
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
     >
-      <DisplayHeading lines={heroLines} size="lg" stagger={0.1} className="text-balance" />
+      <DisplayHeading
+        id="hero-heading"
+        as="h1"
+        lines={heroLines}
+        size="lg"
+        stagger={0.1}
+        className="text-balance"
+      />
     </motion.div>
   );
 }

@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { Header } from "@/components/Header";
 import { CaseStudy } from "@/components/CaseStudy";
 import { Footer } from "@/components/Footer";
-import { getAllProjects, getProjectBySlug } from "@/lib/projects";
+import { getAllProjects, getProjectBySlug, getProjectSummaries } from "@/lib/projects";
 
 interface WorkPageProps {
   params: Promise<{ slug: string }>;
@@ -44,8 +44,9 @@ export default async function WorkDetailPage({ params }: WorkPageProps) {
     notFound();
   }
 
-  // Find the next project (projects are sorted newest first)
-  const allProjects = getAllProjects();
+  // Projects are sorted newest first. Summaries carry the index numbering and
+  // the display case, so the next-project link matches the index exactly.
+  const allProjects = getProjectSummaries();
   const currentIndex = allProjects.findIndex((p) => p.slug === slug);
   const nextProject =
     currentIndex >= 0 && currentIndex < allProjects.length - 1
@@ -59,12 +60,13 @@ export default async function WorkDetailPage({ params }: WorkPageProps) {
         <CaseStudy
           meta={project.meta}
           slug={slug}
+          number={String(currentIndex + 1).padStart(2, "0")}
           nextProject={
             nextProject
               ? {
                   slug: nextProject.slug,
-                  title: nextProject.meta.title,
-                  subtitle: nextProject.meta.subtitle,
+                  title: nextProject.title,
+                  subtitle: nextProject.subtitle,
                 }
               : undefined
           }

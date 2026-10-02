@@ -1,0 +1,66 @@
+/*
+ * Print styles for /cv only.
+ *
+ * The goal is a document that survives Ctrl/Cmd-P and "Save as PDF": A4, white
+ * background, no site chrome, no red chrome bleeding into the margins, and
+ * links printed as text rather than as blue underlined URLs.
+ */
+
+@page {
+  size: A4;
+  margin: 14mm 14mm 16mm;
+}
+
+@media print {
+  html,
+  body {
+    background: #ffffff !important;
+  }
+
+  /* Hide every piece of site furniture. */
+  header,
+  footer,
+  .no-print {
+    display: none !important;
+  }
+
+  main {
+    padding-top: 0 !important;
+  }
+
+  /* Kill the entrance animations: an element that has not animated in yet
+     prints blank. Force the resting state instead. */
+  section,
+  section * {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  /* Swiss identity, but in ink. */
+  .print-ink {
+    color: #000000 !important;
+  }
+
+  .print-rule {
+    border-color: #000000 !important;
+  }
+
+  /* Never break a role or a project across a page. */
+  .print-block {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  h1,
+  h2,
+  h3 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  a {
+    color: inherit !important;
+    text-decoration: none !important;
+  }
+}
