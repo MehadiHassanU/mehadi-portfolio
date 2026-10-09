@@ -14,9 +14,9 @@ export function Contact({ number }: { number: string }) {
   const contactLinks = [
     {
       label: "Email",
-      href: "mailto:uthomehedihasan@gmail.com",
+      href: "mailto:utshomehedihasan@gmail.com",
       icon: Mail,
-      description: "uthomehedihasan@gmail.com",
+      description: "utshomehedihasan@gmail.com",
     },
     {
       label: "LinkedIn",
@@ -73,7 +73,7 @@ export function Contact({ number }: { number: string }) {
         {/*
           Two columns, not four — and only from xl up.
 
-          The longest value here is "uthomehedihasan@gmail.com", which needs 200px
+          The longest value here is "utshomehedihasan@gmail.com", which needs 200px
           at 14px Inter. Four cards inside a 9-column span give only 177px of
           content width at 1440 — 23px short — and no amount of padding trimming
           closes that gap without making the cards look pinched.

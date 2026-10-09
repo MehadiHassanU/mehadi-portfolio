@@ -59,17 +59,18 @@ export default function CvPage() {
                 <dt className="text-cool uppercase shrink-0 w-20">Email</dt>
                 <dd>
                   <a
-                    href="mailto:uthomehedihasan@gmail.com"
+                    href="mailto:utshomehedihasan@gmail.com"
                     className="hover:text-accent transition-colors"
+                    aria-label="Email utshomehedihasan@gmail.com"
                   >
-                    uthomehedihasan@gmail.com
+                    utshomehedihasan@gmail.com
                   </a>
                 </dd>
               </div>
               <div className="flex gap-3">
                 <dt className="text-cool uppercase shrink-0 w-20">Phone</dt>
                 <dd>
-                  <a href="tel:+8801870200163" className="hover:text-accent transition-colors">
+                  <a href="tel:+8801870200163" className="hover:text-accent transition-colors" aria-label="Phone +880 1870 200 163">
                     +880 1870 200 163
                   </a>
                 </dd>
@@ -80,6 +81,7 @@ export default function CvPage() {
                   <a
                     href="https://github.com/MehadiHassanU"
                     className="hover:text-accent transition-colors"
+                    aria-label="GitHub github.com/MehadiHassanU"
                   >
                     github.com/MehadiHassanU
                   </a>
@@ -91,6 +93,7 @@ export default function CvPage() {
                   <a
                     href="https://linkedin.com/in/mehadihassanu"
                     className="hover:text-accent transition-colors"
+                    aria-label="LinkedIn linkedin.com/in/mehadihassanu"
                   >
                     linkedin.com/in/mehadihassanu
                   </a>

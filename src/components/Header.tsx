@@ -51,7 +51,7 @@ export function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-background-color duration-300 ${
         scrolled ? "bg-swiss/95 backdrop-blur-sm border-b border-charcoal" : "bg-transparent"
       }`}
       role="banner"
@@ -78,7 +78,7 @@ export function Header() {
             <Link
               key={item.href}
               href={item.href}
-              className="font-body text-meta text-slate uppercase hover:text-accent transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-accent after:transition-all hover:after:w-full whitespace-nowrap"
+              className="font-body text-meta text-slate uppercase hover:text-accent transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-accent after:transition-width hover:after:w-full whitespace-nowrap"
             >
               {item.label}
             </Link>
